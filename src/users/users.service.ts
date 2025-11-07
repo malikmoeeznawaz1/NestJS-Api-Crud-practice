@@ -33,10 +33,10 @@ export class UsersService {
     ]
 
     findAll(role?: "intern" | "admin") {
-        if (role) {
+        if (role && (role === "intern" || role === "admin")) {
             return this.users.filter(user => user.role === role);
         }
-        return this.users;
+        throw new NotFoundException('Role not valid');
     }
 
     findOne(id: number){
@@ -68,7 +68,7 @@ export class UsersService {
     delete(id:number){
         const userIndex = this.users.findIndex(user => Number(user.id) === id);
         if(userIndex === -1){
-            return null;
+            throw new NotFoundException(`Not found, Enter valid id`);
         }
         const deletedUser = this.users.splice(userIndex, 1);
         return deletedUser[0];  
