@@ -37,7 +37,7 @@ export class UsersService {
     }
 
     findOne(id: number){
-        const user = this.users.find(user=> user.id === id.toString());
+        const user = this.users.find(user=> Number(user.id) === id);
         return user || null;
     }
 
@@ -52,7 +52,7 @@ export class UsersService {
     }
 
     update(id: number, userUpdate: {name?: string; email?: string; role?: "intern" | "admin"}){
-        const userIndex = this.users.findIndex(user => user.id === id.toString());
+        const userIndex = this.users.findIndex(user => Number(user.id) === id);
         if(userIndex === -1){
             return null;
         }
@@ -61,7 +61,7 @@ export class UsersService {
     }
 
     delete(id:number){
-        const userIndex = this.users.findIndex(user => user.id === id.toString());
+        const userIndex = this.users.findIndex(user => Number(user.id) === id);
         if(userIndex === -1){
             return null;
         }
